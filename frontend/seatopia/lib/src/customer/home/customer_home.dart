@@ -18,7 +18,7 @@ class CustomerHomePageState extends State<CustomerHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("TrimTime"),
+        title: const Text("Seatopia"),
         actions: [
           IconButton(
             onPressed: () {
@@ -110,7 +110,7 @@ class CustomerHomePageState extends State<CustomerHomePage> {
 
   _buildHeading(String text) {
     return Container(
-      margin: const EdgeInsets.only(left:15.0, right: 15.0,bottom: 10.0),
+      margin: const EdgeInsets.only(left: 15.0, right: 15.0, bottom: 10.0),
       child: Row(
         children: [
           Text(

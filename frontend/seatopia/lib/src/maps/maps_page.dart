@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/providers/customer_providers.dart';
+import 'package:provider/provider.dart';
 import 'package:frontend/src/maps/services/maps_service.dart';
 import 'package:frontend/widgets/loading_widget.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -16,6 +18,7 @@ class _MapsPageState extends State<MapsPage> {
   @override
   void initState() {
     _mapService = MapService(context);
+    context.read<CustomerProvider>().getAllShops(context: context);
     super.initState();
   }
 
@@ -27,38 +30,46 @@ class _MapsPageState extends State<MapsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Pick your shop location"),
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        label: const Text("Continue"),
-        onPressed: () {
-          Navigator.pop(context, {
-            "lat": _mapService.getCurrentLat(),
-            "long": _mapService.getCurrentLong(),
-          });
-        },
-      ),
-      body: LoadingWidget(
-        isLoading: _mapService.isLoading,
-        child: ValueListenableBuilder(
-            valueListenable: _mapService.markers,
-            builder: (context, data, _) {
-              return GoogleMap(
-                markers: data,
-                onTap: (argument) {
-                  _mapService.addMarker(
-                      DateTime.now().toIso8601String(), argument);
-                },
-                zoomGesturesEnabled: true,
-                initialCameraPosition: _mapService.initialLocation,
-                onMapCreated: (GoogleMapController controller) {
-                  _mapService.initController(controller);
-                },
-              );
-            }),
-      ),
+    return Consumer<CustomerProvider>(
+      builder: (context, provider, child) {
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text("Pick your shop location"),
+          ),
+          floatingActionButton: FloatingActionButton.extended(
+            label: const Text("Continue"),
+            onPressed: () {
+              Navigator.pop(context, {
+                "lat": _mapService.getCurrentLat(),
+                "long": _mapService.getCurrentLong(),
+              });
+            },
+          ),
+          body: provider.isMapLoading
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : LoadingWidget(
+                  isLoading: _mapService.isLoading,
+                  child: ValueListenableBuilder(
+                      valueListenable: _mapService.markers,
+                      builder: (context, data, _) {
+                        return GoogleMap(
+                          markers: Set<Marker>.from(provider.markersList),
+                          onTap: (argument) {
+                            _mapService.addMarker(
+                                DateTime.now().toIso8601String(), argument);
+                          },
+                          zoomGesturesEnabled: true,
+                          initialCameraPosition: _mapService.initialLocation,
+                          onMapCreated: (GoogleMapController controller) {
+                            _mapService.initController(controller);
+                          },
+                        );
+                      }),
+                ),
+        );
+      },
     );
   }
 }
