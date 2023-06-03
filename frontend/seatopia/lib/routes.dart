@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/src/barber/auth/login_page.dart';
-import 'package:frontend/src/barber/auth/signup_page.dart';
-import 'package:frontend/src/barber/home/barber_home.dart';
+// import 'package:frontend/src/barber/auth/login_page.dart';
+// import 'package:frontend/src/barber/auth/signup_page.dart';
+// import 'package:frontend/src/barber/home/barber_home.dart';
 import 'package:frontend/src/customer/home/available_shops.dart';
 import 'package:frontend/src/customer/home/select_time.dart';
 import 'package:frontend/src/customer/auth/login_page.dart';
@@ -35,12 +35,12 @@ class Routes {
       case Routes.initalRoute:
         return getRoute(const WelcomePage());
       // Barber
-      case Routes.barberLoginRoute:
-        return getRoute(const BarberLoginPage());
-      case Routes.barberSignUpRoute:
-        return getRoute(const BarberSignUpPage());
-      case Routes.barberHomeRoute:
-        return getRoute(const BarberHomePage());
+      // case Routes.barberLoginRoute:
+      //   return getRoute(const BarberLoginPage());
+      // case Routes.barberSignUpRoute:
+      //   return getRoute(const BarberSignUpPage());
+      // case Routes.barberHomeRoute:
+      //   return getRoute(const BarberHomePage());
 
       // Customer
       case Routes.customerLoginRoute:

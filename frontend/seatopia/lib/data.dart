@@ -1,17 +1,17 @@
 List<String> images = [
   "assets/logo.png",
-  "assets/color.png",
-  "assets/cuts.png",
-  "assets/hairdo.png",
-  "assets/waxing.png",
+  "assets/legalservices.png",
+  "assets/financial.png",
+  "assets/govservices.png",
+  "assets/autoservices.png",
 ];
 
 List<String> names = [
   "Haircut",
-  "Color Hair",
-  "Cuts",
-  "Hairdo",
-  "Waxing",
+  "Legal Services",
+  "Financial Services",
+  "Government Services",
+  "Auto Services",
 ];
 
 List<String> usernames = [

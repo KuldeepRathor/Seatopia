@@ -1,7 +1,11 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:frontend/data.dart';
 import 'package:frontend/globals.dart';
 import 'package:frontend/routes.dart';
+import 'package:frontend/src/customer/home/categories.dart';
+import 'package:frontend/src/customer/home/categoriesdetails.dart';
 
 class CustomerHomePage extends StatefulWidget {
   const CustomerHomePage({super.key});
@@ -18,7 +22,7 @@ class CustomerHomePageState extends State<CustomerHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("TrimTime"),
+        title: const Text("Seatopia"),
         actions: [
           IconButton(
             onPressed: () {
@@ -36,25 +40,30 @@ class CustomerHomePageState extends State<CustomerHomePage> {
     return SingleChildScrollView(
       child: Column(
         children: [
-          _buildSearchBar(),
+          // _buildSearchBar(),
           const SizedBox(height: 10),
           _buildBanner(),
           const SizedBox(height: 10),
           _buildHeading("Categories"),
           const SizedBox(height: 10),
-          GridView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: GridView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+              ),
+              itemCount: images.length,
+              itemBuilder: (context, index) {
+                return _buildItem(index);
+              },
             ),
-            itemCount: images.length,
-            itemBuilder: (context, index) {
-              return _buildItem(index);
-            },
           ),
+          const SizedBox(height: 10),
+          _buildHeading("Popular"),
           const SizedBox(height: 10),
         ],
       ),
@@ -88,7 +97,12 @@ class CustomerHomePageState extends State<CustomerHomePage> {
 
   _buildItem(int index) {
     return GestureDetector(
-      onTap: () => Navigator.of(context).pushNamed(Routes.selectTimeRoute),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => CategoriesDetails()),
+        );
+      },
       child: Column(
         children: [
           Expanded(
@@ -110,7 +124,7 @@ class CustomerHomePageState extends State<CustomerHomePage> {
 
   _buildHeading(String text) {
     return Container(
-      margin: const EdgeInsets.only(left:15.0, right: 15.0,bottom: 10.0),
+      margin: const EdgeInsets.only(left: 15.0, right: 15.0, bottom: 10.0),
       child: Row(
         children: [
           Text(
@@ -121,9 +135,17 @@ class CustomerHomePageState extends State<CustomerHomePage> {
             ),
           ),
           const Spacer(),
-          Text(
-            "View All",
-            style: TextStyle(color: Colors.grey[400]),
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => AllCategories()),
+              );
+            },
+            child: Text(
+              "View All",
+              style: TextStyle(color: Colors.grey[400]),
+            ),
           ),
         ],
       ),
@@ -146,7 +168,7 @@ class CustomerHomePageState extends State<CustomerHomePage> {
                   height: double.infinity,
                   width: 0.9 * getWidth(context),
                   child: Image.asset(
-                    index == 0 ? "assets/banner.png" : "assets/banner_2.png",
+                    index == 0 ? "assets/banner2.png" : "assets/banner1.png",
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -154,27 +176,5 @@ class CustomerHomePageState extends State<CustomerHomePage> {
             );
           },
         ));
-  }
-
-  _buildSearchBar() {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 10.0),
-      decoration:
-          BoxDecoration(borderRadius: BorderRadius.circular(15.0), boxShadow: [
-        BoxShadow(
-          blurRadius: 5.0,
-          offset: const Offset(3.0, 3.0),
-          color: Colors.black.withOpacity(0.05),
-          spreadRadius: 4.0,
-        ),
-      ]),
-      child: const TextField(
-        decoration: InputDecoration(
-          border: InputBorder.none,
-          hintText: "Search",
-          prefixIcon: Icon(Icons.search),
-        ),
-      ),
-    );
   }
 }
