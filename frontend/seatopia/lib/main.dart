@@ -8,6 +8,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(title: 'Seatopia', home: BarberSignUpPage());
+    return MaterialApp(title: 'Seatopia', home: CustomerSignUpPage());
   }
 }

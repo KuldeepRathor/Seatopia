@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/routes.dart';
+
+import '../../routes.dart';
 
 class CustomerLoginPage extends StatefulWidget {
   const CustomerLoginPage({super.key});
