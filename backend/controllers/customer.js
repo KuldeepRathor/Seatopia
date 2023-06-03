@@ -7,6 +7,7 @@ exports.signUp = async(req, res) => {
             password: req.body.password,
             name: req.body.name,
             uid: req.body.uid,
+            phone: req.body.phone,
         });    
         const customer = await newCustomer.save();
         res.status(200).json(customer);
