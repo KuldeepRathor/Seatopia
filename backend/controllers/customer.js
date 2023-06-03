@@ -70,3 +70,23 @@ exports.createAppointment = async(req, res) => {
         return res.json(err);
     }
 }
+
+exports.getAppointment = async(req, res) => {
+    const {shopUid} = req.body;
+    try{
+        Shop.findOne({ uid: shopUid })
+        .then((shop) => {
+          if (!shop) {
+            return res.status(404).json({ error: 'Shop not found' });
+          }
+            const timeslots = [];
+            shop.timeslots.forEach((value, key) => {
+            timeslots.push({ timeslot: key, user: value.user, appointmentmsg: value.appointmentmsg });
+            });
+            return res.status(200).json({ timeslots });
+
+        })
+    } catch(err){
+        return res.json(err);
+    }
+}
