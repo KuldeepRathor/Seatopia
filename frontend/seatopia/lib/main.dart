@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:seatopia/screens/auth/signup_page.dart';
 
 void main() => runApp(const MyApp());
 
@@ -7,16 +8,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Seatopia',
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Seatopia'),
-        ),
-        body: const Center(
-          child: Text('Seatopia'),
-        ),
-      ),
-    );
+    return MaterialApp(title: 'Seatopia', home: BarberSignUpPage());
   }
 }
