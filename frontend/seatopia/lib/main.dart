@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/providers/customer_providers.dart';
 import 'package:frontend/routes.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider<CustomerProvider>(
+          create: (_) => CustomerProvider()),
+    ],
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -16,7 +24,7 @@ class MyApp extends StatelessWidget {
       title: 'Seatopia',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.orange,
+          seedColor: Colors.blue,
           brightness: Brightness.dark,
         ),
         fontFamily: GoogleFonts.inter().fontFamily,

@@ -5,6 +5,7 @@ const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const uuid4 = require('uuid4');
 const customerRouter = require('./routes/customer.js');
+const shopRouter = require('./routes/shop.js');
 
 const app = express();
 dotenv.config();
@@ -17,6 +18,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/customer', customerRouter);
+app.use('/api/shop', shopRouter);
 
 mongoose.set('strictQuery', false);
 mongoose
