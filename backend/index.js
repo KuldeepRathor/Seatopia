@@ -4,7 +4,7 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const uuid4 = require('uuid4');
-const eventRouter = require('./routes/event.js');
+const customerRouter = require('./routes/customer.js');
 
 const app = express();
 dotenv.config();
@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
     res.send("Hello, welocme to Seatopia's API");
 });
 
-app.use('/api/event', eventRouter);
+app.use('/api/customer', customerRouter);
 
 mongoose.set('strictQuery', false);
 mongoose
