@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
-
-import 'screens/auth/login_page.dart';
-import 'screens/auth/signup_page.dart';
+import 'package:frontend/src/barber/auth/login_page.dart';
+import 'package:frontend/src/barber/auth/signup_page.dart';
+import 'package:frontend/src/barber/home/barber_home.dart';
+import 'package:frontend/src/customer/home/available_shops.dart';
+import 'package:frontend/src/customer/home/select_time.dart';
+import 'package:frontend/src/customer/auth/login_page.dart';
+import 'package:frontend/src/customer/auth/signup_page.dart';
+import 'package:frontend/src/customer/home/customer_home.dart';
+import 'package:frontend/src/maps/maps_page.dart';
+import 'package:frontend/src/welcome_page.dart';
 
 class Routes {
   static const String initalRoute = "/";
@@ -25,34 +32,34 @@ class Routes {
     final args = settings.arguments;
 
     switch (settings.name) {
-      // case Routes.initalRoute:
-      //   return getRoute(const WelcomePage());
-      // // Barber
-      // case Routes.barberLoginRoute:
-      //   return getRoute(const BarberLoginPage());
-      // case Routes.barberSignUpRoute:
-      //   return getRoute(const BarberSignUpPage());
-      // case Routes.barberHomeRoute:
-      //   return getRoute(const BarberHomePage());
+      case Routes.initalRoute:
+        return getRoute(const WelcomePage());
+      // Barber
+      case Routes.barberLoginRoute:
+        return getRoute(const BarberLoginPage());
+      case Routes.barberSignUpRoute:
+        return getRoute(const BarberSignUpPage());
+      case Routes.barberHomeRoute:
+        return getRoute(const BarberHomePage());
 
       // Customer
       case Routes.customerLoginRoute:
         return getRoute(const CustomerLoginPage());
       case Routes.customerSignUpRoute:
         return getRoute(const CustomerSignUpPage());
-      // case Routes.customerHomeRoute:
-      //   return getRoute(const CustomerHomePage());
+      case Routes.customerHomeRoute:
+        return getRoute(const CustomerHomePage());
 
-      // // General Routes
-      // case Routes.mapRoute:
-      //   return getRoute(const MapsPage());
-      // case Routes.selectTimeRoute:
-      //   return getRoute(const SelectTimePage());
-      // case Routes.availableShops:
-      //   return getRoute(AvailableShopsPage(time: args as String));
+      // General Routes
+      case Routes.mapRoute:
+        return getRoute(const MapsPage());
+      case Routes.selectTimeRoute:
+        return getRoute(const SelectTimePage());
+      case Routes.availableShops:
+        return getRoute(AvailableShopsPage(time: args as String));
 
       default:
-        return getRoute(const CustomerLoginPage());
+        return getRoute(const WelcomePage());
     }
   }
 
