@@ -52,7 +52,7 @@ exports.getAllShops = async(req, res) => {
 exports.createAppointment = async(req, res) => {
     const {shopUid, userUid, timeslot, appointmentmsg} = req.body;
     try{
-        Event.findOne({ uid: shopUid })
+        Shop.findOne({ uid: shopUid })
         .then((shop) => {
           if (!shop) {
             return res.status(404).json({ error: 'Shop not found' });

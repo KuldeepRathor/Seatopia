@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const eventSchema = new mongoose.Schema(
+const shopSchema = new mongoose.Schema(
     {
         uid: {
             type: String,
@@ -52,4 +52,4 @@ const eventSchema = new mongoose.Schema(
     }
 );
 
-module.exports = mongoose.model('Event', eventSchema);
+module.exports = mongoose.model('Shop', shopSchema);
