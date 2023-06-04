@@ -31,7 +31,7 @@ exports.logIn = async(req,res) => {
 };
 
 exports.getShopsByCategory = async(req, res) => {
-    const {category} = req.body;
+    const {category} = req.query;
     try{
         const shops = await Shop.find({category: category});
         res.status(200).json(shops);
@@ -57,6 +57,9 @@ exports.createAppointment = async(req, res) => {
           if (!shop) {
             return res.status(404).json({ error: 'Shop not found' });
           }
+        if (shop.timeslots.has(timeslot)) {
+            return res.status(400).json({ error: 'Timeslot already booked' });
+        }
           shop.timeslots.set(timeslot, { user: userUid, appointmentmsg: appointmentmsg });
           return shop.save();
         })
@@ -66,6 +69,24 @@ exports.createAppointment = async(req, res) => {
         .catch((error) => {
           res.status(500).json({ error: 'Error creating appointment', message: error.message });
         });
+    } catch(err){
+        return res.json(err);
+    }
+}
+
+exports.getAppointment = async(req, res) => {
+    const {shopUid} = req.query;
+    try{
+        const shop = await Shop.findOne({ uid: shopUid })
+        if (!shop) {
+            return res.status(404).json({ error: 'Shop not found' });
+        }
+        const timeslotsArr = [];
+        for (const [key, value] of shop.timeslots) {
+            const customer = await Customer.findOne({ uid: value.user })
+            timeslotsArr.push({ timeslot: key, msg: `${customer.name} : ${value.appointmentmsg}` })
+        };
+        return res.status(200).json({ timeslots: timeslotsArr });
     } catch(err){
         return res.json(err);
     }
